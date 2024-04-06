@@ -7,9 +7,11 @@ export default function UserForm({
   defaultRole,
   defaultProfilePictureUrl,
   defaultPhoneNumber,
-//   onSubmit,
+  // onSubmit,
   onSubmitRegister,
   onSubmitLogin,
+  onSubmitProfile,
+  onSubmitRole,
   loading,
 }) {
   const handleSubmit = (e) => {
@@ -27,7 +29,11 @@ export default function UserForm({
     // Jika onSubmitLogin tersedia, kirim data login
     if (onSubmitLogin) {
       onSubmitLogin({ email, password });
-    } else { 
+    } else if (onSubmitProfile) {
+      onSubmitProfile({ email, name, profilePictureUrl, phoneNumber });
+    } else if (onSubmitRole) {
+      onSubmitRole({ role });
+    } else {
       onSubmitRegister({ email, name, password, passwordRepeat, role, profilePictureUrl, phoneNumber });
     }
   };
@@ -82,9 +88,35 @@ export default function UserForm({
           <input defaultValue={defaultPhoneNumber} name="phoneNumberUser" placeholder="Phone Number" type="text" />
         </>
       )}
+      {onSubmitProfile && (
+        <>
+          <label>Email : </label>
+          <input defaultValue={defaultEmail} name="emailUser" placeholder="Email" type="email" />
 
-          {/* <button type="submit">{loading ? "Loading..." : "Submit"}</button> */}
-          <button type="submit">Submit</button>
+          <label>Name : </label>
+          <input defaultValue={defaultName} name="nameUser" placeholder="Name" type="text" />
+
+          <label>Profile Picture Url : </label>
+          <input
+            defaultValue={defaultProfilePictureUrl}
+            name="profilePictureUrlUser"
+            placeholder="Profile Picture Url"
+            type="text"
+          />
+
+          <label>Phone Number : </label>
+          <input defaultValue={defaultPhoneNumber} name="phoneNumberUser" placeholder="Phone Number" type="text" />
+        </>
+      )}
+
+      {onSubmitRole && (
+        <>
+          <label>Role : </label>
+          <input defaultValue={defaultRole} name="roleUser" placeholder="Role" type="text" />
+        </>
+      )}
+      {/* <button type="submit">{loading ? "Loading..." : "Submit"}</button> */}
+      <button type="submit">Submit</button>
     </form>
   );
 }

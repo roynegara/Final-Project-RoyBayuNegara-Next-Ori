@@ -26,39 +26,31 @@ export default function AllUser() {
     }
   };
   const handleMyProfile = () => {
-    router.push("/user/myProfile");
+    router.push("/user/profile");
   };
 
   useEffect(() => {
     getAllUser();
   }, []);
-    
-    if (loading) {
-      return <div>Loading...</div>;
-    }
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-    return (
-        <div>
-            {
-                users.map((user) => (
-                    <div key={user.id}>
-                        <img className="imageAllUser" src={user.profilePictureUrl} alt={user.name}/>
-                        <h1>Nama : {user.name}</h1>
-                        <h1>Email : {user.email}</h1>
-                        <h1>Role : {user.role}</h1>
-                        <h1>Phone Number : {user.phoneNumber}</h1>
-                        
-                        <div>
-                        <button onClick={() => handleMyProfile()}>Go to My Profile</button>    
-</div>
-
-
-
-                    </div>
-                ))
-            }
+  return (
+    <div>
+      <div>
+        <button onClick={() => handleMyProfile()}>Go to My Profile</button>
+      </div>
+      {users.map((user) => (
+        <div key={user.id}>
+          <img className="imageAllUser" src={user.profilePictureUrl} alt={user.name} />
+          <h1>Nama : {user.name}</h1>
+          <h1>Email : {user.email}</h1>
+          <h1>Role : {user.role}</h1>
+          <h1>Phone Number : {user.phoneNumber}</h1>
         </div>
-    )
-    
+      ))}
+    </div>
+  );
 }
